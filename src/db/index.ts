@@ -1,8 +1,10 @@
 import { Pilet } from '../types';
 
-const piletData: Record<string, Record<string, Pilet>> = {};
+const fs = require('fs');
+const piletData: Record<string, Record<string, Pilet>> = JSON.parse(fs.readFileSync('./pilets.json', 'utf8'));
 
 export async function getPilets(): Promise<Array<Pilet>> {
+  
   const pilets: Array<Pilet> = [];
 
   Object.keys(piletData).forEach(name =>
@@ -23,8 +25,12 @@ export async function getPilet(name: string, version: string): Promise<Pilet | u
 export async function setPilet(pilet: Pilet) {
   const meta = pilet.meta;
   const current = piletData[meta.name] || {};
+  
   piletData[meta.name] = {
     ...current,
     [meta.version]: pilet,
-  };
+  }
+
+  fs.writeFileSync('./pilets.json', JSON.stringify(piletData))
+
 }
