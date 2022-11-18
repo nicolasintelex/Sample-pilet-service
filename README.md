@@ -9,7 +9,9 @@ A simple Node.js sample pilet feed service for use with Piral. If you don't want
 For running this sample locally all you need to do is running:
 
 ```sh
-npm i && npm start
+yarn install
+yarn build
+yarn start
 ```
 
 **Remark**: This sample requires Node.js and NPM. The used port is `9000`, which could be re-configured easily (e.g., via an environment variable `PORT`).
